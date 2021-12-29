@@ -41,10 +41,11 @@ def handle_client(connection, address):
             if msg == DISCONNECT:
                 connected = False
             print(f"[{address}] {msg}")
+            index = 0
             with clients_lock:
                 for c in clients:
                     time = datetime.now().strftime("%H:%M")
-                    c.sendall(f"\n[{username}, {time}] {msg}".encode(FORMAT))
+                    c.sendall(f"\n[{ACTIVE_CLIENTS[index].username}, {time}] {msg}".encode(FORMAT))
                     
     finally:
         with clients_lock:
