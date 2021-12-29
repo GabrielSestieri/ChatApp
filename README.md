@@ -1,2 +1,2 @@
 # ChatApp
-A Chat application built using Python, Django, and Postgres.
+A Chat application built using Python, Django, and PostgreSQL.
