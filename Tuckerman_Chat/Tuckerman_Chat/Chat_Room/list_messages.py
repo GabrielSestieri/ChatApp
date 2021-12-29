@@ -2,6 +2,7 @@ import socket
 import time
 from datetime import *
 
+
 PORT = 5051
 SERVER = "192.168.1.31"
 ADDR = (SERVER, PORT)
@@ -12,6 +13,7 @@ def connect():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(ADDR)
     return client
+
 
 def start():
     connection = connect()
