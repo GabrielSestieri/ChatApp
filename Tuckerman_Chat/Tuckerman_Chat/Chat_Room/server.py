@@ -1,74 +1,73 @@
 import socket
 import threading
-from datetime import datetime
+import time
+from datetime import *
 
-HOST = socket.gethostbyname(socket.gethostname())
-PORT = 5050
-LISTENER_LIMIT = 5
-active_clients = []
 
-def listen_for_messages(client, username):
+PORT = 5051
+SERVER = socket.gethostbyname(socket.gethostname())
+ADDR = (SERVER, PORT)
+FORMAT = "utf-8"
+DISCONNECT = "!DISCONNECT"
+ACTIVE_CLIENTS = []
+username_status = False
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server.bind(ADDR)
 
-    while 1:
+clients = set()
+clients_lock = threading.Lock()
 
-        message = client.recv(2048).decode('utf-8')
-        print("Message: " + message)
-        if message != '':
-            final_msg = username + '~' + message
-            print("Final Message: " + final_msg)
-            send_message_to_all(final_msg)
-
-        else:
-            print("Message is empty")
-
-def send_message_to_client(client, message):
-    print("***** In Send Message to Client *****")
-
-    client.sendall(message.encode())
-
-def send_message_to_all(message):
-    print("***** In Send Message To All *****")
-
-    for user in active_clients:
-        print("***** Sending Message to User *****")
-        send_message_to_client(user[1], message)
-
-def client_handler(client):
-
-    while 1:
-        username = client.recv(2048).decode('utf-8')
-        if username != '':
-            active_clients.append((username, client))
-            break
-        else:
-            print("Username is empty")
-
-    threading.Thread(target=listen_for_messages, args=(client, username)).start()
-
-def main():
-
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+def handle_client(connection, address):
+    global username_status
+    print(f"[NEW CONNECTION] {address} connected.")
 
     try:
-        server.bind((HOST, PORT))
-        print(f"Running Server on: {HOST} : {PORT}")
+        connected = True
+        while connected:
+            while not username_status:
+                username = connection.recv(2048).decode('utf-8')
+                if username != '':
+                    ACTIVE_CLIENTS.append((username, connection))
+                    username_status = True
+                    break
+                else:
+                    print("Username is empty")
+                    
+            msg = connection.recv(2048).decode(FORMAT)
+            if not msg:
+                break
+            if msg == DISCONNECT:
+                connected = False
+            print(f"[{address}] {msg}")
+            with clients_lock:
+                for c in clients:
+                    time = datetime.now().strftime("%H:%M")
+                    c.sendall(f"\n[{username}, {time}] {msg}".encode(FORMAT))
+                    
+    finally:
+        with clients_lock:
+            clients.remove(connection)
 
-    except:
-        print("Unable to bind host")
+        connection.close()
+         
+        
 
-    server.listen(LISTENER_LIMIT)
-    while 1:
-
-        client, address = server.accept()
-
-        print(f"Successfully connected to {address[0]} : {address[1]}")
-
-        threading.Thread(target=client_handler, args=(client, )).start()
-
-if __name__ == '__main__':
-    main()
-
-    
-
-
+def start_server():
+    server.listen()
+    print(f"[LISTENING] server is listening on {SERVER}")
+    while True:
+        connection, address = server.accept()
+        print(connection)
+        print(address)
+        with clients_lock:
+            clients.add(connection)
+        thread = threading.Thread(target=handle_client, args=(connection, address))
+        thread.start()
+        connection.send(f"Welcome to the server {address[0]}! \n".encode(FORMAT))
+        connection.send(f"Enter !DISCONNECT to exit the server.".encode(FORMAT))
+        print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
+        
+        
+print("[STARTING] server is starting...")
+start_server()

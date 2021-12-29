@@ -1,70 +1,49 @@
 import socket
+import time
 import threading
 
-HOST = "192.168.1.31"
-PORT = 5050
+PORT = 5051
+SERVER = "192.168.1.31"
+ADDR = (SERVER, PORT)
+FORMAT = "utf-8"
+DISCONNECT = "!DISCONNECT"
 
-def listen_for_messages_from_server(client):
+def connect():
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect(ADDR)
+    return client
 
-    while 1:
+def send(client, msg):
+    client.send(msg.encode())
 
-        message = client.recv(2048).decode('utf-8')
-        if message != '':
-            username = message.split("~")[0]
-            content = message.split("~")[1]
+def start():
+    answer = input("Connect to the server? (y/n) ")
+    if answer.lower() != "y":
+        return
 
-            # print(f"[{username}] {content}")
-        else:
-            print("Message empty")
-
-def send_message_to_server(client):
-
-    while 1:
-
-        message = input("\nMessage: ")
-        if message != '':
-            client.sendall(message.encode())
-        else:
-            print("Empty message")
-            exit(0)
-
-def communicate_to_server(client):
+    connection = connect()
     username_status = False
     while not username_status:
         username = input("Enter username: ")
         if username != '':
-            client.sendall(username.encode())
+            send(connection, username)
             username_status = True
         else:
             print("Username is required")
             username_status = False
-    
-    thread = threading.Thread(target=listen_for_messages_from_server, args=(client, ))
+
+    while True:
+        msg = (input("Send a message: (q for quit): "))
+        if msg == "q":
+            break
+        send(connection, msg)
+    thread = threading.Thread(target=connect, args=(connection, ))
     thread.start()
+    send(connection, DISCONNECT)
+    time.sleep(1)
+    print("Disconnected")
 
-    send_message_to_server(client)
-
-def main():
-
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    try:
-
-        client.connect((HOST, PORT))
-        print("Successfully Connected to server")
-    except:
-        print("Unable to connect")
-
-    communicate_to_server(client)
-
-if __name__ == '__main__':
-    main()
-
-
-
-
-
-
+start()
 
 
 
