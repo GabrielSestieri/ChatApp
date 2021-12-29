@@ -11,6 +11,7 @@ FORMAT = "utf-8"
 DISCONNECT = "!DISCONNECT"
 ACTIVE_CLIENTS = []
 username_status = False
+username = ""
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server.bind(ADDR)
@@ -28,7 +29,7 @@ def handle_client(connection, address):
             while not username_status:
                 username = connection.recv(2048).decode('utf-8')
                 if username != '':
-                    ACTIVE_CLIENTS.append((username, connection))
+                    ACTIVE_CLIENTS.append((username, address[0]))
                     username_status = True
                     break
                 else:
