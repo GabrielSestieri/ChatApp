@@ -9,7 +9,7 @@ SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
 FORMAT = "utf-8"
 DISCONNECT = "!DISCONNECT"
-ACTIVE_CLIENTS = []
+ACTIVE_CLIENTS = {}
 username_status = False
 username = ""
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -29,7 +29,7 @@ def handle_client(connection, address):
             while not username_status:
                 username = connection.recv(2048).decode('utf-8')
                 if username != '':
-                    ACTIVE_CLIENTS.append((username, address[0]))
+                    ACTIVE_CLIENTS[address[0]] = username
                     username_status = True
                     break
                 else:
@@ -45,7 +45,8 @@ def handle_client(connection, address):
             with clients_lock:
                 for c in clients:
                     time = datetime.now().strftime("%H:%M")
-                    c.sendall(f"\n[{ACTIVE_CLIENTS[index].username}, {time}] {msg}".encode(FORMAT))
+                    c.sendall(f"\n[{ACTIVE_CLIENTS[address[0]]}, {time}] {msg}".encode(FORMAT))
+                    index += 1
                     
     finally:
         with clients_lock:
