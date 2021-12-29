@@ -13,7 +13,7 @@ def listen_for_messages_from_server(client):
             username = message.split("~")[0]
             content = message.split("~")[1]
 
-            print(f"[{username}] {content}")
+            # print(f"[{username}] {content}")
         else:
             print("Message empty")
 

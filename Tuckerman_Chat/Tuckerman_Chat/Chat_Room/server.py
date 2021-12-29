@@ -44,9 +44,9 @@ def client_handler(client):
 def main():
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     try:
-
         server.bind((HOST, PORT))
         print(f"Running Server on: {HOST} : {PORT}")
 
