@@ -12,21 +12,25 @@ def listen_for_messages(client, username):
     while 1:
 
         message = client.recv(2048).decode('utf-8')
+        print("Message: " + message)
         if message != '':
-
             final_msg = username + '~' + message
+            print("Final Message: " + final_msg)
             send_message_to_all(final_msg)
 
         else:
             print("Message is empty")
 
 def send_message_to_client(client, message):
+    print("***** In Send Message to Client *****")
 
     client.sendall(message.encode())
 
 def send_message_to_all(message):
+    print("***** In Send Message To All *****")
 
     for user in active_clients:
+        print("***** Sending Message to User *****")
         send_message_to_client(user[1], message)
 
 def client_handler(client):
