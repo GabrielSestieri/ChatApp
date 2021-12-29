@@ -27,9 +27,14 @@ def handle_client(connection, address):
         connected = True
         while connected:
             while not username_status:
+                print("***** BEfore Username *****")
                 username = connection.recv(2048).decode('utf-8')
+                print("***** After Username *****")
                 if username != '':
+
+                    print("RIGHT NEXT TO ADDY", address)
                     ACTIVE_CLIENTS[address[0]] = username
+                    print("******", ACTIVE_CLIENTS)
                     username_status = True
                     break
                 else:
@@ -41,12 +46,14 @@ def handle_client(connection, address):
             if msg == DISCONNECT:
                 connected = False
             print(f"[{address}] {msg}")
-            index = 0
+            print(ACTIVE_CLIENTS)
             with clients_lock:
                 for c in clients:
+                    ip = c.getsockname()[0]
                     time = datetime.now().strftime("%H:%M")
-                    c.sendall(f"\n[{ACTIVE_CLIENTS[address[0]]}, {time}] {msg}".encode(FORMAT))
-                    index += 1
+                    c.sendall(f"\n[{ACTIVE_CLIENTS[ip]}, {time}] {msg}".encode(FORMAT))
+               
+            
                     
     finally:
         with clients_lock:
@@ -62,9 +69,11 @@ def start_server():
     while True:
         connection, address = server.accept()
         print(connection)
-        print(address)
         with clients_lock:
             clients.add(connection)
+            print("IN START SERVER**")
+            print(address[0])
+            ACTIVE_CLIENTS[address[0]] = ""
         thread = threading.Thread(target=handle_client, args=(connection, address))
         thread.start()
         connection.send(f"Welcome to the server {address[0]}! \n".encode(FORMAT))
