@@ -11,7 +11,6 @@ FORMAT = "utf-8"
 DISCONNECT = "!DISCONNECT"
 ACTIVE_CLIENTS = {}
 USERNAME_STATUS = {}
-username_status = False
 username = ""
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -21,7 +20,6 @@ clients = set()
 clients_lock = threading.Lock()
 
 def handle_client(connection, address):
-    global username_status
     print(f"[NEW CONNECTION] {address} connected.")
 
     try:
@@ -30,13 +28,11 @@ def handle_client(connection, address):
             with clients_lock:
                 for c in clients:
                     ip = c.getpeername()[0]
-
                     if ip == address[0]:
                         if USERNAME_STATUS[ip] == False:
                             username = connection.recv(2048).decode('utf-8')
                             if username != '':
                                 ACTIVE_CLIENTS[address[0]] = username
-                                username_status = True
                                 USERNAME_STATUS[ip] = True
                                 break
                             else:
@@ -48,13 +44,13 @@ def handle_client(connection, address):
                 break
             if msg == DISCONNECT:
                 connected = False
-            print(f"[{address}] {msg}")
-            print(ACTIVE_CLIENTS)
             with clients_lock:
                 for c in clients:
                     ip = c.getpeername()[0]
+                    user = ACTIVE_CLIENTS.get(str(ip))
                     time = datetime.now().strftime("%H:%M")
-                    c.sendall(f"\n[{ACTIVE_CLIENTS[ip]}, {time}] {msg}".encode(FORMAT))
+                    if ip == address[0]:
+                        print(f"[{time}] {user}: {msg}")
             
             #RANDOM COMMENT    
                         

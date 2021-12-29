@@ -37,7 +37,7 @@ def start():
         if msg == "q":
             break
         send(connection, msg)
-    thread = threading.Thread(target=connect, args=(connection, ))
+    thread = threading.Thread(target=connect)
     thread.start()
     send(connection, DISCONNECT)
     time.sleep(1)
