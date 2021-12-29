@@ -25,8 +25,9 @@ def start():
     username_status = False
     while not username_status:
         username = input("Enter username: ")
+        fullname = input("Enter full name: ")
         if username != '':
-            send(connection, username)
+            send(connection, username+"|"+fullname)
             username_status = True
         else:
             print("Username is required")
