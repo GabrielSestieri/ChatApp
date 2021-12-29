@@ -1,7 +1,7 @@
 import socket
 import threading
 
-HOST = socket.gethostbyname(socket.gethostname())
+HOST = "192.168.1.32"
 PORT = 5050
 
 def listen_for_messages_from_server(client):
@@ -29,13 +29,15 @@ def send_message_to_server(client):
             exit(0)
 
 def communicate_to_server(client):
-
-    username = input("Enter username: ")
-    if username != '':
-        client.sendall(username.encode())
-    else:
-        print("Username is required")
-        exit(0)
+    username_status = False
+    while not username_status:
+        username = input("Enter username: ")
+        if username != '':
+            client.sendall(username.encode())
+            username_status = True
+        else:
+            print("Username is required")
+            username_status = False
     
     threading.Thread(target=listen_for_messages_from_server, args=(client, )).start()
 
