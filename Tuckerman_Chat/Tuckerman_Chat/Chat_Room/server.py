@@ -56,7 +56,7 @@ def handle_client(connection, address):
                     time = datetime.now().strftime("%H:%M")
                     c.sendall(f"\n[{ACTIVE_CLIENTS[ip]}, {time}] {msg}".encode(FORMAT))
             
-                
+            #RANDOM COMMENT    
                         
     finally:
         with clients_lock:
