@@ -34,17 +34,19 @@ def handle_client(connection, address):
                         if USERNAME_STATUS[ip] == False:
                             response = connection.recv(2048).decode('utf-8')
                             username = response.split("|")[0]
-                            fullname = response.split("|")[1]
+                            try:
+                                fullname = response.split("|")[1]
+                            except:
+                                pass
                             if username != '':
                                 ACTIVE_CLIENTS[address[0]] = [username, fullname]
                                 print(ACTIVE_CLIENTS)
                                 USERNAME_STATUS[ip] = True
                                 break
                             else:
-                                print("Username is empty")
+                                print(f"{ip} has disconnected.")
                         else:
                             break
-            #GETS MESSAGES
             msg = connection.recv(2048).decode(FORMAT)
             if not msg:
                 break
@@ -58,8 +60,7 @@ def handle_client(connection, address):
                     if msg == "show me":
                         print(ACTIVE_CLIENTS[ip])
                     if ip == address[0]:
-                        print(f"[{time}] {user[0]}: {msg}")
-            #RANDOM COMMENT                     
+                        print(f"[{time}] {user[0]}: {msg}")                  
     finally:
         with clients_lock:
             clients.remove(connection)
@@ -76,8 +77,6 @@ def start_server():
             USERNAME_STATUS[address[0]] = False
         thread = threading.Thread(target=handle_client, args=(connection, address))
         thread.start()
-        connection.send(f"Welcome to the server {address[0]}! \n".encode(FORMAT))
-        connection.send(f"Enter !DISCONNECT to exit the server.".encode(FORMAT))
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
         
         
