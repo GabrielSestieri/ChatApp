@@ -16,11 +16,11 @@ def connect():
 def send(client, msg):
     client.send(msg.encode())
 
+
 def start():
     answer = input("Connect to the server? (y/n) ")
     if answer.lower() != "y":
         return
-
     connection = connect()
     username_status = False
     while not username_status:
@@ -38,7 +38,14 @@ def start():
         if msg == "q":
             break
         send(connection, msg)
+        try:
+            msg = connection.recv(2048).decode("utf-8")
+            send(msg)
+            print(msg)
+        except OSError:  # Possibly client has left the chat.
+            break
     thread = threading.Thread(target=connect)
+      
     thread.start()
     send(connection, DISCONNECT)
     time.sleep(1)

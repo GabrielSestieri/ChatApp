@@ -44,7 +44,7 @@ def handle_client(connection, address):
                                 USERNAME_STATUS[ip] = True
                                 break
                             else:
-                                print(f"{ip} has disconnected.")
+                                broadcast(f"{ip} has disconnected.")
                         else:
                             break
             msg = connection.recv(2048).decode(FORMAT)
@@ -60,11 +60,18 @@ def handle_client(connection, address):
                     if msg == "show me":
                         print(ACTIVE_CLIENTS[ip])
                     if ip == address[0]:
-                        print(f"[{time}] {user[0]}: {msg}")                  
+                        print(f"[{time}] {user[0]}: {msg}")    
+                        broadcast(bytes(msg,"utf-8")) 
+
     finally:
         with clients_lock:
             clients.remove(connection)
         connection.close()
+
+def broadcast(msg, prefix=""):  # prefix is for name identification.
+    """Broadcasts a message to all the clients."""
+    for sock in clients:
+        sock.send(bytes(prefix, "utf8")+msg)
 
 def start_server():
     server.listen()
