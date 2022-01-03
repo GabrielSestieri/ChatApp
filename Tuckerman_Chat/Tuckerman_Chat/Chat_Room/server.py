@@ -22,35 +22,33 @@ clients_lock = threading.Lock()
 def handle_client(connection, address):
     print(f"[NEW CONNECTION] {address} connected.")
     try:
-        connected = True
-        while connected:
-            with clients_lock:
-                for c in clients:
-                    ip = c.getpeername()[0]
-                    if ip == address[0]:
-                        username = connection.recv(2048).decode('utf-8')
-                        fullname = connection.recv(2048).decode('utf-8')
-                        ACTIVE_CLIENTS[address[0]] = username, fullname
-                        while True:
-                            message = connection.recv(2048).decode("utf-8")
-                            if not message:
-                                break
-                            if message == DISCONNECT:
-                                connected = False
-                            if message == "show me":
-                                print(ACTIVE_CLIENTS)
-                            for c in clients:
-                                ip = c.getpeername()[0]
-                                time = datetime.now().strftime("%H:%M")
-                                if ip == address[0]:
-                                    print(f"[{time}] {username}: {message}")
-                                else:
-                                    nip = str(ip)
-                                    print(f"{nip} has disconnected.")
-                        
+        with clients_lock:
+            for c in clients:
+                ip = c.getpeername()[0]
+                if ip == address[0]:
+                    username = connection.recv(2048).decode('utf-8')
+                    fullname = connection.recv(2048).decode('utf-8')
+                    ACTIVE_CLIENTS[address[0]] = username, fullname
+                    while True:
+                        message = connection.recv(2048).decode("utf-8")
+                        if not message:
+                            break
+                        if message == "q":
+                            break
+                        if message == "show me":
+                            print(ACTIVE_CLIENTS)
+                        for c in clients:
+                            ip = c.getpeername()[0]
+                            time = datetime.now().strftime("%H:%M")
+                            if ip == address[0]:
+                                print(f"[{time}] {username}: {message}")
+                            else:
+                                nip = str(ip)
+                                print(f"{nip} has disconnected.")                   
     finally:
         with clients_lock:
             clients.remove(connection)
+            print(f"{username} has disconnected")
         connection.close()
         
 

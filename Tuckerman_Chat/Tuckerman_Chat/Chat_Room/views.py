@@ -25,5 +25,9 @@ def chat_view(request):
     user.send_message("what yall doing?")
     time.sleep(.1)
     user.send_message("show me")
+    time.sleep(.1)
+    user.send_message("q")
+    time.sleep(.1)
+    user.send_message("bye")
 
     return render(request, 'chat.html')
