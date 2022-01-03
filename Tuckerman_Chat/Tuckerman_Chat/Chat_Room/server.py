@@ -1,6 +1,5 @@
 import socket
 import threading
-import time
 from datetime import *
 
 
@@ -24,9 +23,9 @@ def handle_client(connection, address):
     try:
         with clients_lock:
             for c in clients:
-                ip = c.getpeername()[0]
-                if ip == address[0]:
+                if c.getpeername()[0] == address[0]:
                     username = connection.recv(2048).decode('utf-8')
+                    print(f"{username} has logged in.")
                     fullname = connection.recv(2048).decode('utf-8')
                     ACTIVE_CLIENTS[address[0]] = username, fullname
                     while True:
@@ -38,13 +37,9 @@ def handle_client(connection, address):
                         if message == "show me":
                             print(ACTIVE_CLIENTS)
                         for c in clients:
-                            ip = c.getpeername()[0]
                             time = datetime.now().strftime("%H:%M")
-                            if ip == address[0]:
-                                print(f"[{time}] {username}: {message}")
-                            else:
-                                nip = str(ip)
-                                print(f"{nip} has disconnected.")                   
+                            if c.getpeername()[0] == address[0]:
+                                print(f"[{time}] {username}: {message}")                  
     finally:
         with clients_lock:
             clients.remove(connection)

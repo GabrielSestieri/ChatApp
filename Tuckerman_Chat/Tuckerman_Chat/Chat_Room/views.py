@@ -16,7 +16,7 @@ def chat_view(request):
 
     user = Client("gabriel", "Gabriel Sestieri")
     time.sleep(.1)
-    user.send_message(f" hello my name is {user.username}")
+    user.send_message(f"hello my name is {user.username}")
     time.sleep(.1)
     user.send_message(f"My full name is {user.fullname}")
     time.sleep(.1)
