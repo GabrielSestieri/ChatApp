@@ -16,7 +16,6 @@ def connect():
 def send(client, msg):
     client.send(msg.encode())
 
-
 def start():
     answer = input("Connect to the server? (y/n) ")
     if answer.lower() != "y":
@@ -40,7 +39,6 @@ def start():
         send(connection, msg)
         try:
             msg = connection.recv(2048).decode("utf-8")
-            send(msg)
             print(msg)
         except OSError:  # Possibly client has left the chat.
             break
