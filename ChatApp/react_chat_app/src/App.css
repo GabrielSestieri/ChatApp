@@ -332,3 +332,59 @@
   text-align: center;
   margin-top: 20px;
 }
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  background: rgba(35, 33, 33, 0.3); 
+  opacity: 100%;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  height: 91%;
+
+}
+
+.msgBox {
+  background: chartreuse;
+  width: 50%;
+  padding: 2%;
+}
+.msgCont {
+  background: lightblue;
+  height: 100%;
+}
+.roomBox {
+  background: chocolate;
+  width: 25%;
+  padding: 2%;
+}
+.roomCont{
+  background: lightblue;
+  height: 100%;
+ }
+
+.friendBox{
+  background: rgb(180, 51, 152);
+  width: 25%;
+  padding: 2%;
+  
+}
+.friendCont {
+  background: lightblue;
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}

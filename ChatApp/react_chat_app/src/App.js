@@ -1,21 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import  { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Link } from "react-router";
-import ChatFeed from './components/ChatFeed';
-import { ChatApp } from "bootstrap-chat"
-
-
 
 function App() {
-  // var express = require('express')
-  // app = express.createServer();
-  // app.get('http://127.0.0.1:8000', function (req, res, next) {
-  //   res.header("Acces-Control-Allow-Orgin", "*");
-  //   res.header("Acces-Control-Allow-Headers", "X-Requested-With");
-  //   next();
-  // });
   async function getData() {
     console.log("***** PRESSED *****");
     var data = {
@@ -49,18 +36,40 @@ function App() {
             by Tuckerman House
           </div>
           <div className="chat-nav-links">
-            <nav>
+            <nav className="nav">
               <a href="/">Chat</a>
-
               <a href="/">Friends</a>
+              <a href="/">Groups</a>
+              <a href="/">Logout</a>
             </nav>
           </div>
         </div>
         
       </div>
-      <Routes>
-        <Route path='/' element={<ChatFeed />}></Route>
-      </Routes>
+      <div className="container">
+        <div className="roomBox">
+          <p>Rooms</p>
+          <div className="roomCont">
+            
+          </div>
+        </div>
+        <div className="msgBox">
+          <p>Messages</p>
+          <div className="msgCont">
+            <form>
+              <input type="text" placeholder="Message"></input>
+              <button type="submit" onClick={getData}>Send</button>
+            </form>
+          </div>
+        </div>
+        <div className="friendBox">
+          <p>Friends</p>
+          <div className="friendCont">
+            
+          </div>
+        </div>
+      </div>
+      
     </Router>
   );
 }
