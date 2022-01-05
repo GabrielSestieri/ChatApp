@@ -1,5 +1,5 @@
 """
-ASGI config for Tuckerman_Chat project.
+ASGI config for Django_Settings project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Tuckerman_Chat.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Django_Settings.settings')
 
 application = get_asgi_application()

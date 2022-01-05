@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ChatRoomConfig(AppConfig):
-    name = 'Chat_Room'
+class DjangoChatConfig(AppConfig):
+    name = 'Django_Chat'

@@ -1,4 +1,4 @@
-"""Tuckerman_Chat URL Configuration
+"""Django_Settings URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -16,6 +16,6 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('', include('Chat_Room.urls')),
-    path('api/', include('Chat_Room.api.urls')) 
+    path('', include('Django_Chat.urls')),
+    path('api/', include('Django_Chat.api.urls')) 
 ]

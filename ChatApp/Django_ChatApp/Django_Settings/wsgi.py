@@ -1,5 +1,5 @@
 """
-WSGI config for Tuckerman_Chat project.
+WSGI config for Django_Settings project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Tuckerman_Chat.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Django_Settings.settings')
 
 application = get_wsgi_application()
