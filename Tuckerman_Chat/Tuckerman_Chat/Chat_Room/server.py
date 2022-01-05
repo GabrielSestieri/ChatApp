@@ -24,12 +24,19 @@ def handle_client(connection, address):
         with clients_lock:
             for c in clients:
                 if c.getpeername()[0] == address[0]:
-                    username = connection.recv(2048).decode('utf-8')
+                    while True:
+                        header = connection.recv(2048).decode(FORMAT)
+                        request = connection.recv(2048).decode(FORMAT)
+                        string = str(request)
+                        splitstring = string.split("msg=")
+                        message = splitstring[-1]
+                        print((splitstring[1]))
+                    username = connection.recv(4096).decode('utf-8')
                     print(f"{username} has logged in.")
-                    fullname = connection.recv(2048).decode('utf-8')
+                    fullname = connection.recv(4096).decode('utf-8')
                     ACTIVE_CLIENTS[address[0]] = username, fullname
                     while True:
-                        message = connection.recv(2048).decode("utf-8")
+                        message = connection.recv(4096).decode("utf-8")
                         if not message:
                             break
                         if message == "q":
@@ -43,7 +50,7 @@ def handle_client(connection, address):
     finally:
         with clients_lock:
             clients.remove(connection)
-            print(f"{username} has disconnected")
+            #print(f"{username} has disconnected")
         connection.close()
         
 
