@@ -1,5 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import  { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ChatFeed from './components/ChatFeed';
+import { ChatApp } from "bootstrap-chat"
+
 
 
 function App() {
@@ -33,11 +38,11 @@ function App() {
 
   }
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-      <button type="button" onClick={getData}>Get Data</button>
-
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<ChatFeed />}></Route>
+      </Routes>
+    </Router>
   );
 }
 
