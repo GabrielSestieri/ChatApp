@@ -5,6 +5,6 @@ A Chat application built using Python, Django, and PostgreSQL.
 
 ### Front-End
 
-- fix bottom <body> padding/margin (chat app should fill whole page)
 
-- connect backend
+
+- connect message input to send to server
