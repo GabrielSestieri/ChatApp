@@ -32,3 +32,8 @@ def chat_view(request):
     
 
     return render(request, 'chat.html')
+
+def send_message(request):
+    print("***** IN SEND MESSAGE *****")
+    print(request.POST['message'])
+    return redirect('/chat')
