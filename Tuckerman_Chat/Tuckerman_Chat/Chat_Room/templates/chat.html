@@ -527,8 +527,8 @@
                             <form action="/sendMessage" method="POST">
                                 {% csrf_token %}
                                 <div class="chat-txt">
-                                    <input class="form-control form-control-lg" type="text" placeholder="Send a message"
-                                        aria-label=".form-control-lg example">
+                                    <input class="form-control form-control-lg" type="text" name="message"
+                                        placeholder="Send a message" aria-label=".form-control-lg example">
                                 </div>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-white" data-original-title="" title=""><i
