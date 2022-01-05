@@ -12,14 +12,17 @@ const ChatFeed = (props) => {
 
   return (
     <div className="chat-feed">
-      <div className="chat-title-container">
+      {/* <div className="chat-title-container">
         <div className="chat-title">
           Chat App
         </div>
-        <div className="chat-subtitle">
-          by Tuckerman House
+        <div class="chat-tophead">
+          <div className="chat-subtitle">
+            by Tuckerman House
+          </div>
         </div>
-      </div>
+        
+      </div> */}
       <div style={{ height: '100px' }}/>
       <div className="message-form-container">
         messages

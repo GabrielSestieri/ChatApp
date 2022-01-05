@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import  { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Link } from "react-router";
 import ChatFeed from './components/ChatFeed';
 import { ChatApp } from "bootstrap-chat"
 
@@ -39,6 +40,24 @@ function App() {
   }
   return (
     <Router>
+      <div className="chat-title-container">
+        <div className="chat-title">
+          Chat App
+        </div>
+        <div className="chat-tophead">
+          <div className="chat-subtitle">
+            by Tuckerman House
+          </div>
+          <div className="chat-nav-links">
+            <nav>
+              <a href="/">Chat</a>
+
+              <a href="/">Friends</a>
+            </nav>
+          </div>
+        </div>
+        
+      </div>
       <Routes>
         <Route path='/' element={<ChatFeed />}></Route>
       </Routes>
