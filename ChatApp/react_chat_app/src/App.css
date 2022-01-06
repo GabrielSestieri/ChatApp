@@ -109,7 +109,7 @@
 /* CUSTOM FEED */
 
 .chat-feed {
-  height: 100%;
+  height: 100vh;;
   width: 100%;
   overflow: scroll;
   background-color: rgb(240, 240, 240);
@@ -117,7 +117,6 @@
 
 .chat-title-container {
   width: calc(100% - 36px);
-  padding: 18px;
   text-align: center;
 }
 
@@ -358,7 +357,7 @@
 }
 .msgCont {
   background: lightblue;
-  height: 100%;
+  height: 98%;
 }
 .roomBox {
   background: chocolate;
@@ -367,7 +366,7 @@
 }
 .roomCont{
   background: lightblue;
-  height: 100%;
+  height: 98%;
  }
 
 .friendBox{
@@ -378,13 +377,17 @@
 }
 .friendCont {
   background: lightblue;
-  height: 100%;
+  height: 98%;
 }
 
 html, body {
-  height: 100%;
+  height: 100vh;
+}
+
+body {
+  height: 100vh;
 }
 
 #root {
-  height: 100%;
+  height: 100vh;
 }
