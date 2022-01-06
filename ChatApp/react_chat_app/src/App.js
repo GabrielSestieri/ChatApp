@@ -38,6 +38,7 @@ function App() {
           <p>WebApp</p>
           <SignOut />
         </div>
+        <p className='chat-subtitle'>by Tuckerman House</p>
       </header>
       <section>
         {user ? <Home /> : <SignIn />}

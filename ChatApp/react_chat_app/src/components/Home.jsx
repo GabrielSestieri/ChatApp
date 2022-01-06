@@ -2,7 +2,7 @@ import React from 'react'
 import '../home.css'
 import '../chatfeed.css';
 import FriendBox from './FriendBox'
-import Rooms from './Rooms'
+import Forum from './Forum'
 import { useState, useRef, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
@@ -80,7 +80,7 @@ const Home = (prop) => {
 
     const GetScreen = () => {
         if (currentScreen == 1) {
-            return <Rooms />
+            return <Forum />
         }
         else if (currentScreen == 2) {
             return <ChatRoom />
@@ -107,7 +107,7 @@ const Home = (prop) => {
             return (<div className="newNav">
                 <button onClick={function () {
                     setScreen(1);
-                }} className="rooms">Rooms</button>
+                }} className="forum">Forum</button>
                 <button onClick={function () {
                     setScreen(2);
                 }} className="chat">Chat</button>
@@ -124,7 +124,7 @@ const Home = (prop) => {
                 }} className="chat">Chat</button>
                 <button onClick={function () {
                     setScreen(1);
-                }} className="rooms">Rooms</button>
+                }} className="forum">Forum</button>
                 <button onClick={function () {
                     setScreen(3);
                 }} className="friends">Friends</button>
@@ -137,7 +137,7 @@ const Home = (prop) => {
                 }} className="friends">Friends</button>
                 <button onClick={function () {
                     setScreen(1);
-                }} className="rooms">Rooms</button>
+                }} className="forum">Forum</button>
                 <button onClick={function () {
                     setScreen(2);
                 }} className="chat">Chat</button>
@@ -150,6 +150,7 @@ const Home = (prop) => {
         <div className="chat-title-container">
             <OrderNavs />
             <div className="container">
+                <div className='space'></div>
                 <GetScreen />
             </div>
         </div>
