@@ -34,9 +34,9 @@ const Home = (prop) => {
         }
     }
 
-    return (
-        <div className="chat-title-container">
-            <div className="newNav">
+    const OrderNavs = () => {
+        if (currentScreen == 1) {
+            return (<div className="newNav">
                 <button onClick={function () {
                     setScreen(1);
                 }} className="rooms">Rooms</button>
@@ -46,7 +46,41 @@ const Home = (prop) => {
                 <button onClick={function () {
                     setScreen(3);
                 }} className="friends">Friends</button>
-            </div>
+            </div>);
+        }
+        else if (currentScreen == 2) {
+            return (<div className="newNav">
+
+                <button onClick={function () {
+                    setScreen(2);
+                }} className="chat">Chat</button>
+                <button onClick={function () {
+                    setScreen(1);
+                }} className="rooms">Rooms</button>
+                <button onClick={function () {
+                    setScreen(3);
+                }} className="friends">Friends</button>
+            </div>);
+        }
+        else {
+            return (<div className="newNav">
+                <button onClick={function () {
+                    setScreen(3);
+                }} className="friends">Friends</button>
+                <button onClick={function () {
+                    setScreen(1);
+                }} className="rooms">Rooms</button>
+                <button onClick={function () {
+                    setScreen(2);
+                }} className="chat">Chat</button>
+
+            </div>);
+        }
+    }
+
+    return (
+        <div className="chat-title-container">
+            <OrderNavs />
             <div className="container">
                 <GetScreen />
             </div>

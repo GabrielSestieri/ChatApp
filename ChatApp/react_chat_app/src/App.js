@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { useState, useRef, useEffect} from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Chatfeed from './components/ChatFeed';
 import Home from './components/Home'
 
@@ -34,14 +34,9 @@ function App() {
     <div className="App">
       <header>
         <div className="title-signout">
-            <p>WebApp</p>
-            <div className='signout'><SignOut /></div>
-            
-        </div>
-        <div className='nav'>
-            <a href="/">Forum</a>
-            <a href="/">Chat</a>
-            <a href="/">Friends</a>
+          <p>WebApp</p>
+          <div className='signout'><SignOut /></div>
+
         </div>
       </header>
       <section>
@@ -76,9 +71,9 @@ function ChatRoom() {
   const query = messagesRef.orderBy('createdAt');
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
-  
+
   useEffect(() => {
-    if (webhook.current){
+    if (webhook.current) {
       scrollToBottom();
     }
   })
@@ -96,11 +91,11 @@ function ChatRoom() {
     })
 
     setFormValue('');
-    webhook.current.scrollIntoView({behavior: 'smooth'});
+    webhook.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   const scrollToBottom = () => {
-    webhook.current.scrollIntoView({ behavior:'smooth' });
+    webhook.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   return (
@@ -121,12 +116,12 @@ function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
   return (<>
-    <div className={ `message ${messageClass}`}>
+    <div className={`message ${messageClass}`}>
       <img src={photoURL} />
       <p>{text}</p>
     </div>
 
-    </>)
+  </>)
 
 }
 

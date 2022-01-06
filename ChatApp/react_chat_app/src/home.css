@@ -83,17 +83,17 @@
 
 .rooms{
   background: chocolate;
-  width: 25%;
+  width: 33.33%;
 }
 
 .chat{
   background: chartreuse;
-  width: 50%;
+  width: 33.33%;
 }
 
 .friends{
   background: rgb(180, 51, 152);
-  width: 25%;
+  width: 33.33%;
 }
 
 .container {
@@ -111,8 +111,8 @@
 
 .msgBox {
   background: chartreuse;
-  width: 50%;
-  padding: 1%;
+  width: 100%;
+  padding: 3%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,8 +130,8 @@
 
 .roomBox {
   background: chocolate;
-  width: 25%;
-  padding: 1%;
+  width: 100%;
+  padding: 3%;
 }
 .roomCont{
   background: lightblue;
@@ -140,8 +140,9 @@
 
 .friendBox{
   background: rgb(180, 51, 152);
-  width: 25%;
-  padding: 1%;
+  width: 100%;
+  padding: 3%;
+  
   
 }
 .friendCont {
