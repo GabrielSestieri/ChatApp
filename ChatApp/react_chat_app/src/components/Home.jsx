@@ -1,5 +1,4 @@
 import React from 'react'
-import ChatFeed from './ChatFeed'
 import '../home.css'
 import '../chatfeed.css';
 import FriendBox from './FriendBox'
@@ -9,7 +8,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 
