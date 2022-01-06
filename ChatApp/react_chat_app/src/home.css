@@ -39,9 +39,13 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-self: flex-end;
+
 }
 
+
 .title-signout p {
+  margin-left: -150%;
+  margin-right: 100%;
   color: #7554a0
 }
 

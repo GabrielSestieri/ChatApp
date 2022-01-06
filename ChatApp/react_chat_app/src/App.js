@@ -35,7 +35,8 @@ function App() {
       <header>
         <div className="title-signout">
             <p>WebApp</p>
-            <SignOut />
+            <div className='signout'><SignOut /></div>
+            
         </div>
         <div className='nav'>
             <a href="/">Forum</a>
