@@ -8,23 +8,22 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
+import firebaseAuth from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { limit } from 'firebase/firestore';
+import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 
 firebase.initializeApp({
-  apiKey: "AIzaSyBad9zRHCMMjFN53OW1tBg-fzNpY6ZjnCM",
-  authDomain: "chatapp-e003c.firebaseapp.com",
-  projectId: "chatapp-e003c",
-  storageBucket: "chatapp-e003c.appspot.com",
-  messagingSenderId: "598157875529",
-  appId: "1:598157875529:web:a74c3c4fa61a926cc8e298",
-  measurementId: "G-3CLSQ7D7R6"
+  apiKey: "AIzaSyBr0FdE4CaMEvGIsxOj5Tj6Ak_UQtV0HSc",
+  authDomain: "chat-app-8ad90.firebaseapp.com",
+  projectId: "chat-app-8ad90",
+  storageBucket: "chat-app-8ad90.appspot.com",
+  messagingSenderId: "588248375846",
+  appId: "1:588248375846:web:4af2e4a32b10a8aae0fce7",
+  measurementId: "G-KWYTCBN5T7"
 })
 
 const auth = firebase.auth();
-const firestore = firebase.firestore();
 
 function App() {
 
@@ -53,9 +52,21 @@ function SignIn() {
     auth.signInWithPopup(provider);
   }
 
+  const signInAnon = () => {
+    signInAnonymously(auth)
+        .then(() => {
+
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ...
+        });
+  }
   return (
     <div>
       <button onClick={signInWithGoogle}>Sign in with Google</button>
+      <button onClick={signInAnon}>Sign in anonymously</button>
     </div>
   )
 }

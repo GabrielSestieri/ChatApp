@@ -103,7 +103,7 @@ const Home = (prop) => {
     }
 
     const OrderNavs = () => {
-        if (currentScreen == 1) {
+        if (currentScreen) {
             return (<div className="newNav">
                 <button onClick={function () {
                     setScreen(1);
@@ -116,34 +116,34 @@ const Home = (prop) => {
                 }} className="friends">Friends</button>
             </div>);
         }
-        else if (currentScreen == 2) {
-            return (<div className="newNav">
+        // else if (currentScreen == 2) {
+        //     return (<div className="newNav">
 
-                <button onClick={function () {
-                    setScreen(2);
-                }} className="chat">Chat</button>
-                <button onClick={function () {
-                    setScreen(1);
-                }} className="forum">Forum</button>
-                <button onClick={function () {
-                    setScreen(3);
-                }} className="friends">Friends</button>
-            </div>);
-        }
-        else {
-            return (<div className="newNav">
-                <button onClick={function () {
-                    setScreen(3);
-                }} className="friends">Friends</button>
-                <button onClick={function () {
-                    setScreen(1);
-                }} className="forum">Forum</button>
-                <button onClick={function () {
-                    setScreen(2);
-                }} className="chat">Chat</button>
+        //         <button onClick={function () {
+        //             setScreen(2);
+        //         }} className="chat">Chat</button>
+        //         <button onClick={function () {
+        //             setScreen(1);
+        //         }} className="forum">Forum</button>
+        //         <button onClick={function () {
+        //             setScreen(3);
+        //         }} className="friends">Friends</button>
+        //     </div>);
+        // }
+        // else {
+        //     return (<div className="newNav">
+        //         <button onClick={function () {
+        //             setScreen(3);
+        //         }} className="friends">Friends</button>
+        //         <button onClick={function () {
+        //             setScreen(1);
+        //         }} className="forum">Forum</button>
+        //         <button onClick={function () {
+        //             setScreen(2);
+        //         }} className="chat">Chat</button>
 
-            </div>);
-        }
+        //     </div>);
+        // }
     }
 
     return (
