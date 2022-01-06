@@ -26,7 +26,6 @@ const Home = (prop) => {
             </div>  
             <div className="container">
                 <Rooms />
-
                 <ChatFeed />
                 <FriendBox />
             </div>

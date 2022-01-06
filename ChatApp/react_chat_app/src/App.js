@@ -31,9 +31,9 @@ function App() {
 
   return (
     <div className="App">
-      <header>
+      {/* <header>
 
-      </header>
+      </header> */}
       <section>
         {user ? <Home /> : <SignIn />}
       </section>
@@ -44,14 +44,15 @@ function App() {
 function SignIn() {
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider);}
-  
+    auth.signInWithPopup(provider);
+  }
+
   return (
     <div>
       <button onClick={signInWithGoogle}>Sign in with Google</button>
     </div>
-    )
-  }
+  )
+}
 
 function SignOut() {
   return auth.currentUser && (
@@ -63,9 +64,9 @@ function ChatRoom() {
 
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt').limit(25);
-  const [messages] = useCollectionData(query, {idField: 'id'});
+  const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
-  const sendMessage = async(e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
 
     const { uid, photoURL } = auth.currentUser;
@@ -86,7 +87,7 @@ function ChatRoom() {
 
       <form onSubmit={sendMessage}>
         <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
-         <button type="submit">Send</button>
+        <button type="submit">Send</button>
 
       </form>
     </>
@@ -103,11 +104,11 @@ function ChatMessage(props) {
       <img src={photoURL} />
       <p>{text}</p>
     </div>
-    
-  ) 
- }
 
-  
+  )
+}
+
+
 export default App;
 
 

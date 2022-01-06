@@ -118,6 +118,7 @@
 .chat-title-container {
   width: calc(100% - 36px);
   text-align: center;
+  height: 80vh;
 }
 
 .chat-title {
