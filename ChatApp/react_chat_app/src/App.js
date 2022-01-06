@@ -1,31 +1,11 @@
 import './App.css';
 import React from 'react';
 import Chatfeed from './components/ChatFeed';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import firebase from 'firebase/app'
 
 function App() {
-  async function getData() {
-    console.log("***** PRESSED *****");
-    var data = {
-      "data": "Example"
-    };
-    await fetch("http://127.0.0.1:8000/api/index", {
-      method: "POST",
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result)
-        });
-
-  }
+  
   return (
     <Router>
       <div className="chat-title-container">
@@ -68,3 +48,29 @@ function App() {
 }
 
 export default App;
+
+
+
+
+// async function getData() {
+//   console.log("***** PRESSED *****");
+//   var data = {
+//     "data": "Example"
+//   };
+//   await fetch("http://127.0.0.1:8000/api/index", {
+//     method: "POST",
+//     mode: 'cors',
+//     cache: 'no-cache',
+//     credentials: 'same-origin',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(data)
+//   })
+//     .then(res => res.json())
+//     .then(
+//       (result) => {
+//         console.log(result)
+//       });
+
+// }
