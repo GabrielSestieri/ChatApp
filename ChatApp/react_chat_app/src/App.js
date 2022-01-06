@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Chatfeed from './components/ChatFeed';
 import Home from './components/Home'
 
@@ -58,7 +58,7 @@ function SignOut() {
 }
 
 function ChatRoom() {
-
+  const webhook = useRef();
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt').limit(25);
   const [messages] = useCollectionData(query, { idField: 'id' });
@@ -75,13 +75,16 @@ function ChatRoom() {
       photoURL
     });
     setFormValue('');
+
+    webhook.current.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
     <>
-      <div>
+      <main>
         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
-      </div>
+        <div ref={webhook}></div>
+      </main>
 
       <form onSubmit={sendMessage}>
         <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
