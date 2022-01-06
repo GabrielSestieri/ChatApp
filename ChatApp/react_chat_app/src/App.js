@@ -1,12 +1,16 @@
 import './App.css';
 import React from 'react';
+import { useState } from 'react';
 import Chatfeed from './components/ChatFeed';
-import { BrowserRouter as Router } from "react-router-dom";
+import Home from './components/Home'
+
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import { useAuthState } from 'react-firebase-hooks/firestore';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+
 
 firebase.initializeApp({
   apiKey: "AIzaSyBad9zRHCMMjFN53OW1tBg-fzNpY6ZjnCM",
@@ -22,46 +26,88 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 
 function App() {
+
+  const [user] = useAuthState(auth);
+
   return (
-    <Router>
-      <div className="chat-title-container">
-        <div className="chat-title">
-          Chat App
-        </div>
-        <div className="chat-tophead">
-          <div className="chat-subtitle">
-            by Tuckerman House
-          </div>
-          <div className="chat-nav-links">
-            <nav className="nav">
-              <a href="/">Chat</a>
-              <a href="/">Friends</a>
-              <a href="/">Groups</a>
-              <a href="/">Logout</a>
-            </nav>
-          </div>
-        </div>  
-      </div>  
-      <div className="container">
-        <div className="roomBox">
-          <p>Rooms</p>
-          <div className="roomCont">
+    <div className="App">
+      <header>
 
-          </div>
-        </div>
-        <Chatfeed />
-        <div className="friendBox">
-          <p>Friends</p>
-          <div className="friendCont">
-        </div>
-
-          </div>
-      </div>
-
-    </Router>
+      </header>
+      <section>
+        {user ? <Home /> : <SignIn />}
+      </section>
+    </div>
   );
 }
 
+function SignIn() {
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider);}
+  
+  return (
+    <div>
+      <button onClick={signInWithGoogle}>Sign in with Google</button>
+    </div>
+    )
+  }
+
+function SignOut() {
+  return auth.currentUser && (
+    <button onClick={() => auth.signOut()}>Sign Out</button>
+  )
+}
+
+function ChatRoom() {
+
+  const messagesRef = firestore.collection('messages');
+  const query = messagesRef.orderBy('createdAt').limit(25);
+  const [messages] = useCollectionData(query, {idField: 'id'});
+  const [formValue, setFormValue] = useState('');
+  const sendMessage = async(e) => {
+    e.preventDefault();
+
+    const { uid, photoURL } = auth.currentUser;
+
+    await messagesRef.add({
+      text: formValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+      photoURL
+    });
+  }
+
+  return (
+    <>
+      <div>
+        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+      </div>
+
+      <form onSubmit={sendMessage}>
+        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
+         <button type="submit">Send</button>
+
+      </form>
+    </>
+  )
+}
+
+function ChatMessage(props) {
+  const { text, uid, photoURL } = props.message;
+
+  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received'
+
+  return (
+    <div className='message ${messageClass}'>
+      <img src={photoURL} />
+      <p>{text}</p>
+    </div>
+    
+  ) 
+ }
+
+  
 export default App;
 
 
