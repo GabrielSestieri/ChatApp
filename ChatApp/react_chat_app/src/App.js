@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect} from 'react';
 import Chatfeed from './components/ChatFeed';
 import Home from './components/Home'
 
@@ -32,8 +32,12 @@ function App() {
 
   return (
     <div className="App">
+      <header>
+        <h1>Chat</h1>
+        <SignOut />
+      </header>
       <section>
-        {user ? <ChatRoom /> : <SignIn />}
+        {user ? <Home /> : <SignIn />}
       </section>
     </div>
   );
@@ -54,7 +58,7 @@ function SignIn() {
 
 function SignOut() {
   return auth.currentUser && (
-    <button onClick={() => auth.signOut()}>Sign Out</button>
+    <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
   )
 }
 
@@ -64,6 +68,12 @@ function ChatRoom() {
   const query = messagesRef.orderBy('createdAt');
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
+  
+  useEffect(() => {
+    if (webhook.current){
+      scrollToBottom();
+    }
+  })
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -76,9 +86,13 @@ function ChatRoom() {
       uid,
       photoURL
     })
-    setFormValue('');
-    webhook.current.scrollIntoView({ behavior: 'smooth' })
 
+    setFormValue('');
+    webhook.current.scrollIntoView({behavior: 'smooth'});
+  }
+
+  const scrollToBottom = () => {
+    webhook.current.scrollIntoView({ behavior:'smooth' });
   }
 
   return (
@@ -86,11 +100,9 @@ function ChatRoom() {
       <main>
         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
         <span ref={webhook}></span>
-
       </main>
-
       <form onSubmit={sendMessage}>
-        <input ref={webhook} value={formValue} onChange={(e) => setFormValue(e.target.value)} />
+        <input value={formValue} placeholder='Send a message...' onChange={(e) => setFormValue(e.target.value)} />
         <button type="submit" disabled={!formValue}>Send</button>
       </form>
     </>
@@ -99,19 +111,12 @@ function ChatRoom() {
 
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
-  const webhook = useRef();
-
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
-  // webhook.current.scrollIntoView({ behavior: 'smooth' })
   return (<>
     <div className={ `message ${messageClass}`}>
-      
       <img src={photoURL} />
       <p>{text}</p>
-      <span ref={webhook}></span>
     </div>
-    
-
 
     </>)
 

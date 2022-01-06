@@ -9,7 +9,7 @@ const Home = (prop) => {
     return (
         <div className="chat-title-container">
             <div className="chat-title">
-                Chat App
+                Web App
             </div>
             <div className="chat-tophead">
                 <div className="chat-subtitle">
