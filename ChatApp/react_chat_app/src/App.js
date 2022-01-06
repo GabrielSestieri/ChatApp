@@ -10,6 +10,7 @@ import 'firebase/compat/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { limit } from 'firebase/firestore';
 
 
 firebase.initializeApp({
@@ -63,6 +64,7 @@ function ChatRoom() {
   const query = messagesRef.orderBy('createdAt');
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
+
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -73,42 +75,46 @@ function ChatRoom() {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL
-    });
+    })
     setFormValue('');
-
     webhook.current.scrollIntoView({ behavior: 'smooth' })
+
   }
 
   return (
     <>
       <main>
         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
-        <div ref={webhook}></div>
-        
-      </main>
-      <form onSubmit={sendMessage}>
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
-        <button type="submit">Send</button>
+        <span ref={webhook}></span>
 
+      </main>
+
+      <form onSubmit={sendMessage}>
+        <input ref={webhook} value={formValue} onChange={(e) => setFormValue(e.target.value)} />
+        <button type="submit" disabled={!formValue}>Send</button>
       </form>
-      {webhook.current.scrollIntoView({ behavior: 'smooth'})}
-      
     </>
   )
 }
 
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
-  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received'
+  const webhook = useRef();
 
-
-  return (
-    <div className='message ${messageClass}'>
+  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
+  // webhook.current.scrollIntoView({ behavior: 'smooth' })
+  return (<>
+    <div className={ `message ${messageClass}`}>
+      
       <img src={photoURL} />
       <p>{text}</p>
+      <span ref={webhook}></span>
     </div>
+    
 
-  )
+
+    </>)
+
 }
 
 
