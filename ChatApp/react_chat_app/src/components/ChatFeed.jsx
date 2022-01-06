@@ -8,10 +8,10 @@ const ChatFeed = (props) => {
     <div className="msgBox">
       <p>Messages</p>
       <div className="msgCont">
-        {/* <form>
+        <form>
           <input type="text" placeholder="Message"></input>
           <button type="submit" >Send</button>
-        </form> */}
+        </form>
       </div>
     </div>
   );

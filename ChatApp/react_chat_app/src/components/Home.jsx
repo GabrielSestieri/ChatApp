@@ -17,9 +17,9 @@ const Home = (prop) => {
                 </div>
                 <div className="chat-nav-links">
                     <nav className="nav">
+                        <a href="/">Forum</a>
                         <a href="/">Chat</a>
                         <a href="/">Friends</a>
-                        <a href="/">Groups</a>
                         <a href="/">Logout</a>
                     </nav>
                 </div>  

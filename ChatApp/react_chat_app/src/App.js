@@ -32,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <section>
-        {user ? <Home /> : <SignIn />}
+        {user ? <ChatRoom /> : <SignIn />}
       </section>
     </div>
   );
@@ -74,6 +74,7 @@ function ChatRoom() {
       uid,
       photoURL
     });
+    setFormValue('');
   }
 
   return (
