@@ -24,10 +24,12 @@
 /* CUSTOM FEED */
 
 .chat-title-container {
-  width: calc(100% - 36px);
+  width: 100%;
   text-align: center;
   height: 80vh;
   align-self: center;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -44,7 +46,7 @@
 
 
 .title-signout p {
-  margin-left: -150%;
+  margin-left: -200%;
   margin-right: 100%;
   color: #7554a0
 }
@@ -74,7 +76,25 @@
     color: white;
   }
 
+.newNav{
+  display: flex;
+  justify-content: space-evenly;
+}
 
+.rooms{
+  background: chocolate;
+  width: 25%;
+}
+
+.chat{
+  background: chartreuse;
+  width: 50%;
+}
+
+.friends{
+  background: rgb(180, 51, 152);
+  width: 25%;
+}
 
 .container {
   display: flex;
@@ -85,6 +105,7 @@
   text-align: center;
   color: rgb(7, 7, 7);
   height: 91%;
+  width: 100%;
 
 }
 
