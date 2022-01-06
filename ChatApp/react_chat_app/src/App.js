@@ -33,8 +33,15 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Chat</h1>
-        <SignOut />
+        <div className="title-signout">
+            <p>WebApp</p>
+            <SignOut />
+        </div>
+        <div className='nav'>
+            <a href="/">Forum</a>
+            <a href="/">Chat</a>
+            <a href="/">Friends</a>
+        </div>
       </header>
       <section>
         {user ? <Home /> : <SignIn />}

@@ -5,6 +5,7 @@ const FriendBox = (props) => {
         <div className="friendBox">
             <p>Friends</p>
             <div className="friendCont">
+                hello
             </div>
 
         </div>

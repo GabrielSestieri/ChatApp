@@ -5,7 +5,7 @@ const Rooms = (props) => {
         <div className="roomBox">
             <p>Rooms</p>
             <div className="roomCont">
-
+                hello
             </div>
         </div>
     );
