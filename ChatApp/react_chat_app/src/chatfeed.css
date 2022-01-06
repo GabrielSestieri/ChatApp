@@ -41,7 +41,7 @@ body {
     height: 80vh;
     margin: 10vh 0 10vh;
     overflow-y: scroll;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
   }
   

@@ -60,7 +60,7 @@ function SignOut() {
 function ChatRoom() {
   const webhook = useRef();
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(25);
+  const query = messagesRef.orderBy('createdAt');
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
   const sendMessage = async (e) => {
@@ -84,21 +84,23 @@ function ChatRoom() {
       <main>
         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
         <div ref={webhook}></div>
+        
       </main>
-
       <form onSubmit={sendMessage}>
         <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
         <button type="submit">Send</button>
 
       </form>
+      {webhook.current.scrollIntoView({ behavior: 'smooth'})}
+      
     </>
   )
 }
 
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
-
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received'
+
 
   return (
     <div className='message ${messageClass}'>
