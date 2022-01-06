@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
-import  { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Chatfeed from './components/ChatFeed';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   async function getData() {
@@ -44,32 +45,24 @@ function App() {
             </nav>
           </div>
         </div>
-        
+
       </div>
       <div className="container">
         <div className="roomBox">
           <p>Rooms</p>
           <div className="roomCont">
-            
+
           </div>
         </div>
-        <div className="msgBox">
-          <p>Messages</p>
-          <div className="msgCont">
-            <form>
-              <input type="text" placeholder="Message"></input>
-              <button type="submit" onClick={getData}>Send</button>
-            </form>
-          </div>
-        </div>
+        <Chatfeed />
         <div className="friendBox">
           <p>Friends</p>
           <div className="friendCont">
-            
+
           </div>
         </div>
       </div>
-      
+
     </Router>
   );
 }

@@ -5,29 +5,21 @@ import MessageForm from './MessageForm';
 const ChatFeed = (props) => {
   console.log("we here");
 
-  
+
 
   // if (!chat) return <div />;
-  
+
 
   return (
-    <div className="chat-feed">
-      {/* <div className="chat-title-container">
-        <div className="chat-title">
-          Chat App
-        </div>
-        <div class="chat-tophead">
-          <div className="chat-subtitle">
-            by Tuckerman House
-          </div>
-        </div>
-        
-      </div> */}
-      <div style={{ height: '100px' }}/>
-      <div className="message-form-container">
-        messages
+    <div className="msgBox">
+      <p>Messages</p>
+      <div className="msgCont">
+        <form>
+          <input type="text" placeholder="Message"></input>
+          <button type="submit" >Send</button>
+        </form>
       </div>
-    </div> 
+    </div>
   );
 };
 
