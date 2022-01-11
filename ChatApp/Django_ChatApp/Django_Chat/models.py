@@ -3,7 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 
 class User(models.Model):
     displayName = models.CharField(max_length=200)
-    email = models.EmailField(verbose_name="email", max_length=200, unique=True)
+    email = models.EmailField(verbose_name="email", max_length=200, unique=True, null=True)
     uID = models.CharField(max_length=28, unique=True)
 
 

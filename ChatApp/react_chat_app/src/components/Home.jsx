@@ -15,11 +15,65 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const Home = (props) => {
 
-    console.log("***** USER BELOW *****");
-    console.log(props.user);
-
     const auth = firebase.auth();
     const firestore = firebase.firestore();
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if (!loggedIn) {
+            logIn();
+        }
+    });
+
+    console.log("***** IS ANON BELOW *****")
+    console.log(auth.currentUser.isAnonymous)
+
+    async function logIn() {
+        var data = {};
+        if (auth.currentUser.isAnonymous) {
+            data['isAnonymus'] = auth.currentUser.isAnonymous;
+            data['uID'] = auth.currentUser.uid;
+            await fetch("http://127.0.0.1:8000/api/login", {
+                method: "POST",
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        console.log(result)
+                    });
+
+        }
+        else {
+            data['isAnonymus'] = auth.currentUser.isAnonymous;
+            data['uID'] = auth.currentUser.uid;
+            data['displayName'] = auth.currentUser.displayName;
+            data['email'] = auth.currentUser.email;
+            await fetch("http://127.0.0.1:8000/api/login", {
+                method: "POST",
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        console.log(result);
+                        setLoggedIn = true;
+                    });
+
+        }
+    }
 
     function ChatRoom() {
         const webhook = useRef();
