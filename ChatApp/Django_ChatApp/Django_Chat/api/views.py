@@ -42,7 +42,7 @@ def login_user(request):
         while sameName:
             foundName = False
             for user in User.objects.all():
-                if user.dislayName == anonName:
+                if user.displayName == anonName:
                     randNum = random.randint(0, 100000000)
                     anonName = "Anon" + str(randNum)
                     foundName = True
