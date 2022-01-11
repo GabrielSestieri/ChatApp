@@ -40,7 +40,7 @@ function App() {
         <p className='chat-subtitle'>by Tuckerman House</p>
       </header>
       <section>
-        {user ? <Home /> : <SignIn />}
+        {user ? <Home user="USER" /> : <SignIn />}
       </section>
     </div>
   );
@@ -54,14 +54,14 @@ function SignIn() {
 
   const signInAnon = () => {
     signInAnonymously(auth)
-        .then(() => {
+      .then(() => {
 
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ...
-        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ...
+      });
   }
   return (
     <div>

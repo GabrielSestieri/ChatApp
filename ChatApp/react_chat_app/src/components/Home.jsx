@@ -13,7 +13,10 @@ import 'firebase/compat/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 
-const Home = (prop) => {
+const Home = (props) => {
+
+    console.log("***** USER BELOW *****");
+    console.log(props.user);
 
     const auth = firebase.auth();
     const firestore = firebase.firestore();
@@ -86,10 +89,10 @@ const Home = (prop) => {
         }
         else if (currentScreen == 2) {
             return <div className='chatdiv'>
-                    <Sidebar />
-                    <ChatRoom />
-                </div> 
-                
+                <Sidebar />
+                <ChatRoom />
+            </div>
+
         }
         else {
             return <FriendBox />

@@ -69,6 +69,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     ]
 
+
 ROOT_URLCONF = 'Django_Settings.urls'
 
 TEMPLATES = [
@@ -93,13 +94,23 @@ WSGI_APPLICATION = 'Django_Settings.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default' : {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'chat_app',
+        'USER': 'postgres',
+        'PASSWORD': '#E16Vev!',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
