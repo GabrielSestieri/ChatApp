@@ -54,10 +54,13 @@ body {
   form {
     height: 7vh;
     position: fixed;
+    left: 9.15%;
     bottom: 0;
     background-color: rgb(24, 23, 23);
-    width: 100vw;
+    width: 91vw;
     display: flex;
+    flex-direction: row;
+    
     font-size: 1.5rem;
     box-shadow: 5px 10px 30px black;
 

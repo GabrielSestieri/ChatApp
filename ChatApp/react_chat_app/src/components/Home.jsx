@@ -2,6 +2,7 @@ import React from 'react'
 import '../home.css'
 import '../chatfeed.css';
 import FriendBox from './FriendBox'
+import Sidebar from './Sidebar';
 import Forum from './Forum'
 import { useState, useRef, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
@@ -84,7 +85,11 @@ const Home = (prop) => {
             return <Forum />
         }
         else if (currentScreen == 2) {
-            return <ChatRoom />
+            return <div className='chatdiv'>
+                    <Sidebar />
+                    <ChatRoom />
+                </div> 
+                
         }
         else {
             return <FriendBox />
@@ -108,43 +113,15 @@ const Home = (prop) => {
             return (<div className="newNav">
                 <button onClick={function () {
                     setScreen(2);
-                }} className="chat">Chat</button>
+                }} className={currentScreen == 2 ? "chat1" : "chat2"} id="chat">Chat</button>
                 <button onClick={function () {
                     setScreen(1);
-                }} className="forum">Forum</button>
+                }} className={currentScreen == 1 ? "forum1" : "forum2"} id="forum">Forum</button>
                 <button onClick={function () {
                     setScreen(3);
-                }} className="friends">Friends</button>
+                }} className={currentScreen == 3 ? "friends1" : "friends2"} id="friends">Friends</button>
             </div>);
         }
-        // else if (currentScreen == 2) {
-        //     return (<div className="newNav">
-
-        //         <button onClick={function () {
-        //             setScreen(2);
-        //         }} className="chat">Chat</button>
-        //         <button onClick={function () {
-        //             setScreen(1);
-        //         }} className="forum">Forum</button>
-        //         <button onClick={function () {
-        //             setScreen(3);
-        //         }} className="friends">Friends</button>
-        //     </div>);
-        // }
-        // else {
-        //     return (<div className="newNav">
-        //         <button onClick={function () {
-        //             setScreen(3);
-        //         }} className="friends">Friends</button>
-        //         <button onClick={function () {
-        //             setScreen(1);
-        //         }} className="forum">Forum</button>
-        //         <button onClick={function () {
-        //             setScreen(2);
-        //         }} className="chat">Chat</button>
-
-        //     </div>);
-        // }
     }
 
     return (

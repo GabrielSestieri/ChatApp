@@ -11,3 +11,5 @@ A Chat application built using Python, Django, and PostgreSQL.
 - Adjust Sizes of Forum and Friends tab
 - add Side Bar on chat to enter different rooms
 - Work on Forum and Friends
+- date and time to messages
+- color to randoms
