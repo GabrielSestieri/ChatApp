@@ -129,15 +129,37 @@ body {
     text-align: center;
   }
   
+  .chatcontent {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+  }
+ .sent2{
+   display: flex;
+   flex-direction: row-reverse;
+ }
+
+ .received2{
+  display: flex;
+
+ }
+
+
   .message {
     display: flex;
     align-items: center;
   }
-  
+  .receivedAt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 6px;
+  }
   
   .sent {
     flex-direction: row-reverse;
     justify-content: end;
+    
   }
   
   .sent p {
@@ -157,3 +179,5 @@ body {
     border-radius: 50%;
     margin: 2px 5px;
   }
+
+  

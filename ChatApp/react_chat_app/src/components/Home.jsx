@@ -15,8 +15,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const Home = (props) => {
 
-    console.log("***** USER BELOW *****");
-    console.log(props.user);
+    
 
     const auth = firebase.auth();
     const firestore = firebase.firestore();
@@ -27,7 +26,6 @@ const Home = (props) => {
         const query = messagesRef.orderBy('createdAt');
         const [messages] = useCollectionData(query, { idField: 'id' });
         const [formValue, setFormValue] = useState('');
-
         useEffect(() => {
             if (webhook.current) {
                 scrollToBottom();
@@ -69,14 +67,25 @@ const Home = (props) => {
     }
 
     function ChatMessage(props) {
-        const { text, uid, photoURL } = props.message;
+        const { text, uid, photoURL, createdAt } = props.message;
+        console.log(createdAt)
+        var myDate = new Date(createdAt.seconds*1000);
+        var date = String(myDate).slice(0,21);
         const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
+        const textClass = uid === auth.currentUser.uid ? 'sent2' : 'received2';
+
         return (<>
             <div className={`message ${messageClass}`}>
-                <img src={photoURL} />
-                <p>{text}</p>
+                <div className='chatcontent'>
+                    <div className={`message ${textClass}`}>
+                       <img src={photoURL} />
+                        <p>{text}</p> 
+                    </div>
+                    <h5 className='receivedAt'>{date}</h5>
+                </div>
+               
             </div>
-
+            
         </>)
 
     }

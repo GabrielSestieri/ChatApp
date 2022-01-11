@@ -7,9 +7,8 @@ A Chat application built using Python, Django, and PostgreSQL.
 
 
 
-- Adjust borders on nav bar
-- Adjust Sizes of Forum and Friends tab
-- add Side Bar on chat to enter different rooms
+
 - Work on Forum and Friends
-- date and time to messages
+- date and time to messages differentiate based on how long ago it was 
 - color to randoms
+- functionalize sidebar
