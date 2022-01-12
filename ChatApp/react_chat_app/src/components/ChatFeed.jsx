@@ -1,16 +1,16 @@
-import '../chatfeed.css'
+// import '../chatfeed.css'
 
 
-const ChatFeed = (props) => {
+// const ChatFeed = (props) => {
 
 
-  return (
-    <div className="msgBox">
-      <div className="msgCont">
+//   return (
+//     <div className="msgBox">
+//       <div className="msgCont">
         
-      </div>
-    </div>
-  );
-};
+//       </div>
+//     </div>
+//   );
+// };
 
-export default ChatFeed;
+// export default ChatFeed;

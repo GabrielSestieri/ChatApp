@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'n*qlc$btem1jn9*-)n#q32)x&o^9k2n26_!zb!p*&(99&4j3f!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.32']
+ALLOWED_HOSTS = ['tuck-chat-server.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -45,9 +46,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,11 +63,13 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
+        'https://tuck-chat-server.herokuapp.com',
         'http://localhost:3000',
     ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
+    'https://tuck-chat-server.herokuapp.com',
+    'http://localhost:3000'
     ]
 
 
@@ -94,23 +97,23 @@ WSGI_APPLICATION = 'Django_Settings.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default' : {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'chat_app',
-        'USER': 'postgres',
-        'PASSWORD': '#E16Vev!',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default' : {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'chat_app',
+#         'USER': 'postgres',
+#         'PASSWORD': '#E16Vev!',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -153,4 +156,5 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
 
 STATIC_URL = '/static/'
+django_heroku.settings(locals())
 

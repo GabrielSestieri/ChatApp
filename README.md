@@ -12,3 +12,4 @@ A Chat application built using Python, Django, and PostgreSQL.
 - date and time to messages differentiate based on how long ago it was 
 - color to randoms
 - functionalize sidebar
+- axios instead of fetch

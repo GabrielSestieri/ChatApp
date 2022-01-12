@@ -8,7 +8,6 @@ import { useState, useRef, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-//
 
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
@@ -29,11 +28,17 @@ const Home = (props) => {
     console.log(auth.currentUser.isAnonymous)
 
     async function logIn() {
+        console.log("***** IN LOGIN FUNCTION *****");
         var data = {};
         if (auth.currentUser.isAnonymous) {
+            console.log("***** ANON USER *****");
             data['isAnonymus'] = auth.currentUser.isAnonymous;
             data['uID'] = auth.currentUser.uid;
-            await fetch("http://192.168.1.32:8000/api/login", {
+            // await axios.post("https://tuck-chat-server.herokuapp.com/api/login", data).then((response) => {
+            //     console.log(response);
+            // });
+            // console.log("***** AFTER AXIOS CALL *****");
+            await fetch("https://tuck-chat-server.herokuapp.com/api/login", {
                 method: "POST",
                 mode: 'cors',
                 cache: 'no-cache',
@@ -46,6 +51,7 @@ const Home = (props) => {
                 .then(res => res.json())
                 .then(
                     (result) => {
+                        console.log("***** RESULT BELOW *****")
                         console.log(result)
                     });
 
@@ -55,7 +61,7 @@ const Home = (props) => {
             data['uID'] = auth.currentUser.uid;
             data['displayName'] = auth.currentUser.displayName;
             data['email'] = auth.currentUser.email;
-            await fetch("http://192.168.1.32:8000/api/login", {
+            await fetch("https://tuck-chat-server.herokuapp.com/api/login", {
                 method: "POST",
                 mode: 'cors',
                 cache: 'no-cache',
